@@ -1,0 +1,67 @@
+ 
+
+                        @foreach($subProducts as $item)
+                        @php 
+                            $counter=0;
+                        @endphp
+                        @if($counter==0)
+                            <div id="section{{$item->tags}}" class="longcard">
+                                <div class="img">
+                                    <a data-fancybox="gallery" href="{{$item->imgPath}}" data-caption="Lorem ipsum dolor">
+                                        <img src="{{$item->imgPath}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <h2>{{getLangSpec($item->title, App::getLocale())}}</h2>
+                                    <p>
+                                        {!! limiter(getLangSpec($item->short_content, App::getLocale()), 210) !!}
+                                    </p>
+                                </div>
+                            </div>
+                            @php
+                                $counter++;
+                            @endphp
+                        @else
+                            
+                            @php
+                                $counter++;
+                            @endphp
+                        @endif
+                    @endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     <div class="products-page">
+     <div class="container">
+         <div class="row">
+             <nav class="col-xl-3 col-md-4 col-12" id="myScrollspy">
+                 <ul class="nav nav-pills flex-column">
+                     @foreach($tags as $item)
+                     <li class="nav-item">
+                         <a class="nav-link active" href="#section{{$item->id}}">{{getLangSpec($item->title, App::getLocale())}}</a>
+                     </li>
+                     @endforeach
+                 </ul>
+             </nav>
+
+             <div class="col-xl-9 col-md-8 col-12">
+              
+             </div>
+         </div>
+     </div>
+ </div>

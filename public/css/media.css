@@ -1,0 +1,26 @@
+#mediaModal .modal-content .info ul{
+    list-style: none;
+    padding: 15px 0;
+}
+#mediaModal .modal-content .info ul li{
+    position: relative;
+}
+#mediaModal .modal-content .info ul li .checkbox {
+    position: absolute;
+    right: 0px;
+    top: 0;
+}
+#mediaModal .modal-content .info ul li img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+
+}
+#mediaModal .modal-content .info ul li .actionsPanel{
+    position: absolute;
+    bottom: 0;
+    padding: 0 15px;
+}
+#mediaModal .modal-content .info ul li .actionsPanel{
+    font-size: 20px;
+}

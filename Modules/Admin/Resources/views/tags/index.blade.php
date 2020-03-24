@@ -1,0 +1,73 @@
+@extends('admin::index')
+{{--@section('title', 'Dunyobo\'ylab')--}}
+@section('css')
+    <style>
+        table tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+
+        table tr:first-child {
+            background-color: initial;
+        }
+    </style>
+@stop
+@section('content_header')
+    @include('admin::'.$_GET['group'].'.index_top')
+@stop
+
+@section('content')
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Заголовок</th>
+                <th>Анонс</th>
+                <th>Статус</th>
+                <th>Действие</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($posts as $item)
+                <tr>
+                    <td>{{$item->id}}</td>
+                    <td>{{getLangSpec($item->title, 'ru')}}</td>
+                    <td>{{$item->short_content?getLangSpec($item->short_content, 'ru'):''}}</td>
+                    <td><?=($item->status == 'active') ? '<span class="label label-success">Активный</span>' : '<span class="label label-warning">Неактивный</span>'?></td>
+                    <td>
+                        <a href=" {{URL::to('/admin/posts/edit/'.$_GET['group'].'/'.$item->id)}}" class="btn btn-info">Редактировать</a>
+                        <button class="btn btn-danger deleteAction" data-direct="/admin/posts/delete/{{$item->id}}">Удалить
+                        </button>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        <div class="text-center">
+            {{$posts->appends(['group'=>$_GET['group']])->links()}}
+        </div>
+    </div>
+@stop
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $(".deleteAction").click(function (e) {
+                e.preventDefault()
+                var link = '{{url('/')}}'+$(this).data("direct")
+                x = confirm('Вы действительно хотите удалить?');
+                if (!x) return false;
+                $.ajax({
+                    url: link,
+                    type: 'POST',
+                    data: {"_token": "{{ csrf_token() }}"},
+                    success: function (res) {
+                        location.reload()
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            })
+        })
+    </script>
+@stop
